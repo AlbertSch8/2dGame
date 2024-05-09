@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Hra {
 
 
-     public static void SpustHru() {
+     public static void SpustHru() throws Exception {
          boolean pokracuj = true;
          Hrac hrac = new Hrac("Albert", "Rychlik", 4);
 
@@ -111,7 +111,8 @@ public class Hra {
                              if (seznamVeci.get(i).getCisloMistnosti() == hrac.getvJakejeMistnosti()) {
                                  if (seznamVeci.get(i).getJmeno().equals(jmeno)) {
                                      if (seznamVeci.get(i).isJeSebratelny()) {
-                                         batoh.pridejDoBatohu();
+                                         Veci v = seznamVeci.get(i);
+                                         batoh.pridejDoBatohu(v);
                                          seznamVeci.remove(i);
                                          batoh.vypisObsah();
                                      }
