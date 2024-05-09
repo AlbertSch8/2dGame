@@ -6,7 +6,7 @@ public class Hra {
 
      public static void SpustHru() throws Exception {
          boolean pokracuj = true;
-         Hrac hrac = new Hrac("Albert", "Rychlik", 4);
+         Hrac hrac = new Hrac("Albert", "Rychlik", 4, 500);
 
          ArrayList<Veci> seznamVeci = new ArrayList<>();
          String[] nacteniPolozky;
