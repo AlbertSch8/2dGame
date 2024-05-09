@@ -7,7 +7,7 @@ public class Hrac extends Herniobjekt {
     public Hrac(String jmeno, String popis, int vJakejeMistnosti, int pocatecniZivoty) {
         super(jmeno, popis);
         this.vJakejeMistnosti = vJakejeMistnosti;
-        this.zivoty = pocatecniZivoty;
+        this.zivoty = 100;
         jeAktivniStit = false;
     }
 
