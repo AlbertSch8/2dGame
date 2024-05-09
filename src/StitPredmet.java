@@ -1,6 +1,6 @@
 public class StitPredmet extends Veci{
 
-    private double stitEfektivita; // Procentní ochrana
+    private double stitEfektivita;
 
     public StitPredmet(String jmeno, String popis, boolean jeSebratelny, int cisloMistnosti, boolean jeUkoncujici, int hmotnost, double stitEfektivita) throws Exception {
         super(jmeno, popis, jeSebratelny, cisloMistnosti, jeUkoncujici, hmotnost);

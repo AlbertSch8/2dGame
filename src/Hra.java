@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -6,16 +10,43 @@ public class Hra {
 
      public static void SpustHru() throws Exception {
          boolean pokracuj = true;
-         Hrac hrac = new Hrac("Albert", "Rychlik", 4, 500);
+         Hrac hrac = new Hrac("Albert", "Rychlik", 4, 100);
 
          ArrayList<Veci> seznamVeci = new ArrayList<>();
-         String[] nacteniPolozky;
-         ArrayList<Mistnosti> herniMapa = new ArrayList<>();
 
          Batoh batoh = new Batoh();
          ArrayList<Pritel> seznamPratel = new ArrayList<>();
 
          Scanner scaner = new Scanner(System.in);
+         String[] nacteniPolozky;
+         ArrayList<Mistnosti> herniMapa = new ArrayList<>();
+         String filePath = "Hernisvet.txt";
+         try {
+             BufferedReader reader = new BufferedReader(new FileReader(filePath));
+             String line;
+
+             while ((line = reader.readLine()) != null) {
+                 //System.out.println(line);
+                 nacteniPolozky = line.split(",");
+                 herniMapa.add(new Mistnosti(nacteniPolozky[0], prevedStringNaBoolean(nacteniPolozky[1]) , prevedStringNaBoolean(nacteniPolozky[2]), prevedStringNaBoolean(nacteniPolozky[3]),prevedStringNaBoolean(nacteniPolozky[4]) ));
+             }
+             reader.close();
+         } catch (FileNotFoundException e) {
+             System.out.println("Soubor nenalezen");
+         } catch (IOException e) {
+             System.out.println("Soubor je poskozeny");
+         } catch (Exception e) {
+             System.out.println("Nekde je chyba");
+         }
+
+         seznamVeci.add(new Veci("Kokteil", "", true,4,false,20));
+         seznamVeci.add(new Veci("Člun", "", true, 6,false,10));
+         seznamVeci.add(new Veci("Kačenka", "", true, 2,true,30));
+         seznamVeci.add(new Veci("Slunečník", "", false, 5, false,10));
+
+         seznamPratel.add(new Pritel("Plavcik", "", true, false, 1));
+         seznamPratel.add(new Pritel("Kuchar", "", true, false, 1));
+         seznamPratel.add(new Pritel("Krokodyl", "", false, true, 8));
 
          do {
              System.out.println("Pouzij tyhle pro prikazy pro hrani hry: ");
