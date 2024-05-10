@@ -12,7 +12,5 @@ public class Main {
             System.err.println("Došlo k výjimce: " + e.getMessage());
             e.printStackTrace();
         }
-
-
     }
 }

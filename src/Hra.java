@@ -128,6 +128,10 @@ public class Hra {
                          }
                      }
                      break;
+                 case "útok":
+                     utok();
+                     break;
+
                  case "konec":
                      System.out.println("Konec hry.");
                      scaner.close();
@@ -186,6 +190,17 @@ public class Hra {
              }
          } while (true);
      }
+
+    private int zivotyNepřítele = 100;
+
+    private static void utok() {
+        int zivotyNepřítele = 100;
+        System.out.println("Útočíte a ubíráte nepříteli 10 životů.");
+        zivotyNepřítele -= 10;
+        if (zivotyNepřítele > 0) {
+            System.out.println("Nepřítel nyní má " + zivotyNepřítele + " životů. Pokračujte v útoku nebo zkuste jinou akci.");
+        }
+    }
     //hleda vyherni predmet a pokud ho najde tak hra skonci
     public static void overUkonceniHry(ArrayList<Veci> seznamVeciK, Hrac hracK) {
         for(int i = 0; i < seznamVeciK.size(); i++){
