@@ -5,12 +5,14 @@ public class Pritel extends Herniobjekt{
     private boolean jeNepritel;
 
     private int cisloMistnosti;
+    private int zivoty;
 
-    public Pritel(String jmeno, String popis, boolean jePratelsky, boolean jeNepritel, int cisloMistnosti) {
+    public Pritel(String jmeno, String popis, boolean jePratelsky, boolean jeNepritel, int cisloMistnosti, int zivoty) {
         super(jmeno, popis);
         this.jePratelsky = jePratelsky;
         this.jeNepritel = jeNepritel;
         this.cisloMistnosti = cisloMistnosti;
+        this.zivoty = zivoty;
     }
 
     public boolean isJePratelsky() {
@@ -35,5 +37,13 @@ public class Pritel extends Herniobjekt{
 
     public void setCisloMistnosti(int cisloMistnosti) {
         this.cisloMistnosti = cisloMistnosti;
+    }
+
+    public int getZivoty() {
+        return zivoty;
+    }
+
+    public void setZivoty(int zivoty) {
+        this.zivoty = zivoty;
     }
 }
