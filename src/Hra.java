@@ -14,6 +14,8 @@ public class Hra {
 
          ArrayList<Veci> seznamVeci = new ArrayList<>();
 
+         int zivotyNepřítele = 100;
+
          Batoh batoh = new Batoh();
          ArrayList<Pritel> seznamPratel = new ArrayList<>();
 
@@ -47,6 +49,13 @@ public class Hra {
          seznamPratel.add(new Pritel("Plavcik", "", true, false, 1));
          seznamPratel.add(new Pritel("Kuchar", "", true, false, 1));
          seznamPratel.add(new Pritel("Krokodyl", "", false, true, 8));
+
+         zobrazSachovnici(herniMapa);
+         System.out.println(" ");
+         System.out.println("                ------Nachazite se v mistnosti recepce-----");
+         System.out.println("Herni svet pocita s 3x3 mapou, ktera je na zacatku hry vykreslena");
+         System.out.println("");
+         System.out.println("----------------------------------------------------------------------");
 
          do {
              System.out.println("Pouzij tyhle pro prikazy pro hrani hry: ");
@@ -131,7 +140,6 @@ public class Hra {
                  case "útok":
                      utok();
                      break;
-
                  case "konec":
                      System.out.println("Konec hry.");
                      scaner.close();
@@ -190,8 +198,6 @@ public class Hra {
              }
          } while (true);
      }
-
-    private int zivotyNepřítele = 100;
 
     private static void utok() {
         int zivotyNepřítele = 100;
