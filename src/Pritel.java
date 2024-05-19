@@ -46,4 +46,15 @@ public class Pritel extends Herniobjekt{
     public void setZivoty(int zivoty) {
         this.zivoty = zivoty;
     }
+
+    public void utokNaHrace(Hrac hrac) {
+        if (jeNepritel) {
+            System.out.println("Nepřítel " + getJmeno() + " útočí na hráče!");
+            hrac.ubratZivoty(10);
+            System.out.println("Hráč má nyní " + hrac.getZivoty() + " životů.");
+            if (hrac.getZivoty() <= 0) {
+                System.out.println("Hráč byl zabit nepřítelem " + getJmeno() + "!");
+            }
+        }
+    }
 }
