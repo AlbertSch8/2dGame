@@ -9,20 +9,25 @@ public class Hra {
 
 
      public static void SpustHru() throws Exception {
+
          boolean pokracuj = true;
+
          Hrac hrac = new Hrac("Albert", "Rychlik", 4, 100);
 
          ArrayList<Veci> seznamVeci = new ArrayList<>();
 
-         int zivotyNepřítele = 100;
-
          Batoh batoh = new Batoh();
+
          ArrayList<Pritel> seznamPratel = new ArrayList<>();
 
          Scanner scaner = new Scanner(System.in);
+
          String[] nacteniPolozky;
+
          ArrayList<Mistnosti> herniMapa = new ArrayList<>();
+
          String filePath = "Hernisvet.txt";
+
          try {
              BufferedReader reader = new BufferedReader(new FileReader(filePath));
              String line;
@@ -30,7 +35,7 @@ public class Hra {
              while ((line = reader.readLine()) != null) {
                  //System.out.println(line);
                  nacteniPolozky = line.split(",");
-                 herniMapa.add(new Mistnosti(nacteniPolozky[0], prevedStringNaBoolean(nacteniPolozky[1]) , prevedStringNaBoolean(nacteniPolozky[2]), prevedStringNaBoolean(nacteniPolozky[3]),prevedStringNaBoolean(nacteniPolozky[4]) ));
+                 GUI gui = new GUI(nacteniPolozky[0], nacteniPolozky[1],nacteniPolozky[2],nacteniPolozky[3],nacteniPolozky[4],nacteniPolozky[5],nacteniPolozky[6],nacteniPolozky[7],nacteniPolozky[8]);
              }
              reader.close();
          } catch (FileNotFoundException e) {
@@ -46,9 +51,9 @@ public class Hra {
          seznamVeci.add(new Veci("Kačenka", "", true, 2,true,30));
          seznamVeci.add(new Veci("Slunečník", "", false, 5, false,10));
 
-         seznamPratel.add(new Pritel("Plavcik", "", true, false, 1));
-         seznamPratel.add(new Pritel("Kuchar", "", true, false, 1));
-         seznamPratel.add(new Pritel("Krokodyl", "", false, true, 8));
+         seznamPratel.add(new Pritel("Plavcik", "", true, false, 1, 10));
+         seznamPratel.add(new Pritel("Kuchar", "", true, false, 1, 20));
+         seznamPratel.add(new Pritel("Krokodyl", "", false, true, 8, 30 ));
 
          zobrazSachovnici(herniMapa);
          System.out.println(" ");
@@ -144,7 +149,7 @@ public class Hra {
                      System.out.println("Konec hry.");
                      scaner.close();
                      return;
-                 case "zvedni":
+                    case "zvedni":
                      System.out.println("Zadej jmeno objektu co chces zvednout:");
                      String jmeno = scaner.nextLine();
                      for (int i = 0; i < seznamVeci.size(); i++) {
@@ -162,34 +167,6 @@ public class Hra {
                                  }
                              }
                          }
-                     }
-                     break;
-                 case "co je v mistnosti?":
-                     boolean jePredmetvmistnosti = false;
-                     String seznamPredmetu = "  ";
-                     for (int i = 0; i < seznamVeci.size(); i++) {
-                         if (seznamVeci.get(i).getCisloMistnosti() == hrac.getvJakejeMistnosti()) {
-                             jePredmetvmistnosti = true;
-                             seznamPredmetu += seznamVeci.get(i).getJmeno() + " , ";
-                         }
-                     }
-                     if (jePredmetvmistnosti) {
-                         System.out.println("V mistnosti jsou predmety: " + seznamPredmetu);
-                     } else {
-                         System.out.println("V mistnosti nejsou zadne predmety");
-                     }
-                     boolean jePritelvmistnosti = false;
-                     String seznamPrateli = " ";
-                     for (int i = 0; i < seznamPratel.size(); i++) {
-                         if (seznamPratel.get(i).getCisloMistnosti() == hrac.getvJakejeMistnosti() && seznamPratel.get(i).isJePratelsky()) {
-                             jePritelvmistnosti = true;
-                             seznamPrateli += seznamPratel.get(i).getJmeno() + " ";
-                         }
-                     }
-                     if (jePritelvmistnosti) {
-                         System.out.println("V mistnosti jsou pratele: " + seznamPrateli);
-                     } else {
-                         System.out.println("V mistnosti nejsou zadne pratele ");
                      }
                      break;
                  default:
@@ -288,5 +265,34 @@ public class Hra {
         if (hodnota.equals("1")) {
             return true;
         } else return false;
+    }
+    // vypisuje obsah mistnosti
+    public static void vypisObsahMistnosti(ArrayList<Veci> seznamVeci, ArrayList<Pritel> seznamPratel, Hrac hrac) {
+        boolean jePredmetvmistnosti = false;
+        String seznamPredmetu = "  ";
+        for (int i = 0; i < seznamVeci.size(); i++) {
+            if (seznamVeci.get(i).getCisloMistnosti() == hrac.getvJakejeMistnosti()) {
+                jePredmetvmistnosti = true;
+                seznamPredmetu += seznamVeci.get(i).getJmeno() + " , ";
+            }
+        }
+        if (jePredmetvmistnosti) {
+            System.out.println("V mistnosti jsou predmety: " + seznamPredmetu);
+        } else {
+            System.out.println("V mistnosti nejsou zadne predmety");
+        }
+        boolean jePritelvmistnosti = false;
+        String seznamPrateli = " ";
+        for (int i = 0; i < seznamPratel.size(); i++) {
+            if (seznamPratel.get(i).getCisloMistnosti() == hrac.getvJakejeMistnosti() && seznamPratel.get(i).isJePratelsky()) {
+                jePritelvmistnosti = true;
+                seznamPrateli += seznamPratel.get(i).getJmeno() + " ";
+            }
+        }
+        if (jePritelvmistnosti) {
+            System.out.println("V mistnosti jsou pratele: " + seznamPrateli);
+        } else {
+            System.out.println("V mistnosti nejsou zadne pratele ");
+        }
     }
 }

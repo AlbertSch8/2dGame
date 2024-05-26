@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class GUI extends JFrame {
 
@@ -13,6 +14,15 @@ public class GUI extends JFrame {
         JButton btn6 = new JButton(mistnost6);
         JButton btn7 = new JButton(mistnost7);
         JButton btn8 = new JButton(mistnost8);
+
+
+        JButton btns = new JButton("Submit");
+        JLabel lblOutput = new JLabel("zatim nic");
+        JTextField txtInput = new JTextField(20);
+
+
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints cst = new GridBagConstraints();
     }
 
 
