@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Pritel extends Herniobjekt{
 
     private boolean jePratelsky;
@@ -47,13 +49,29 @@ public class Pritel extends Herniobjekt{
         this.zivoty = zivoty;
     }
 
-    public void utokNaHrace(Hrac hrac) {
-        if (jeNepritel) {
-            System.out.println("Nepřítel " + getJmeno() + " útočí na hráče!");
-            hrac.ubratZivoty(10);
-            System.out.println("Hráč má nyní " + hrac.getZivoty() + " životů.");
+    public boolean bojSNepritelem(Scanner scanner, Hrac hrac) {
+        while (true) {
+            int utocnaSilaHrace = 10;
+            int utocnaSilaNepritele = 10;
+            this.zivoty -= utocnaSilaHrace;
+            System.out.println("Útočíte na " + this.getJmeno() + " a ubíráte mu " + utocnaSilaHrace + " životů.");
+            if (this.zivoty <= 0) {
+                System.out.println("Vítězství! " + this.getJmeno() + " byl poražen.");
+                return true;
+            }
+            hrac.ubratZivoty(utocnaSilaNepritele);
+            System.out.println(this.getJmeno() + " útočí na vás a ubírá vám " + utocnaSilaNepritele + " životů.");
+            // Pokud hráč zemře
             if (hrac.getZivoty() <= 0) {
-                System.out.println("Hráč byl zabit nepřítelem " + getJmeno() + "!");
+                System.out.println("Prohra! " + this.getJmeno() + " tě zabil.");
+                return false;
+            }
+            System.out.println("Stav životů - " + this.getJmeno() + ": " + this.zivoty + ", " + hrac.getJmeno() + ": " + hrac.getZivoty());
+            System.out.println("Chcete pokračovat v útoku? (ano/ne)");
+            String odpoved = scanner.nextLine().toLowerCase();
+            if (odpoved.equals("ne")) {
+                System.out.println("Rozhodl jste se ukončit útok.");
+                return false;
             }
         }
     }
