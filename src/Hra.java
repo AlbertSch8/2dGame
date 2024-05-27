@@ -7,27 +7,17 @@ import java.util.Scanner;
 
 public class Hra {
 
-
-     public static void SpustHru() throws Exception {
+    public static void SpustHru() throws Exception {
 
          boolean pokracuj = true;
-
          Hrac hrac = new Hrac("Albert", "Rychlik", 4, 100);
-
          ArrayList<Veci> seznamVeci = new ArrayList<>();
-
          Batoh batoh = new Batoh();
-
          ArrayList<Pritel> seznamPratel = new ArrayList<>();
-
          Scanner scaner = new Scanner(System.in);
-
          String[] nacteniPolozky;
-
          ArrayList<Mistnosti> herniMapa = new ArrayList<>();
-
          String filePath = "Hernisvet.txt";
-
          try {
              BufferedReader reader = new BufferedReader(new FileReader(filePath));
              String line;
@@ -46,10 +36,10 @@ public class Hra {
              System.out.println("Nekde je chyba");
          }
 
-         seznamVeci.add(new Veci("Kokteil", "", true,4,false,20));
-         seznamVeci.add(new Veci("Člun", "", true, 6,false,10));
-         seznamVeci.add(new Veci("Kačenka", "", true, 2,true,30));
-         seznamVeci.add(new Veci("Slunečník", "", false, 5, false,10));
+         seznamVeci.add(new Veci("Kokteil", "", true,4,20));
+         seznamVeci.add(new Veci("Člun", "", true, 6,10));
+         seznamVeci.add(new Veci("Kačenka", "", true, 2,30));
+         seznamVeci.add(new Veci("Slunečník", "", false, 5, 10));
 
          seznamPratel.add(new Pritel("Plavcik", "", true, false, 1, 10));
          seznamPratel.add(new Pritel("Kuchar", "", true, false, 1, 20));
@@ -79,15 +69,11 @@ public class Hra {
                          System.out.println("Vylezl jsi mimo mapu");
                      } else {
                          if (herniMapa.get(hrac.getvJakejeMistnosti()).isSever()) {
-                             if (nepritelVmistnosti(seznamPratel, hrac.getvJakejeMistnosti() - 3)) {
-                                 System.out.println("Konec hry. Zabil vas nepritel");
-                             } else {
-                                 hrac.setvJakejeMistnosti(hrac.getvJakejeMistnosti() - 3);
-                                 System.out.println(" Presel si do mistnosti " + herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
-                                 overUkonceniHry(seznamVeci, hrac);
-                             }
+                             hrac.setvJakejeMistnosti(hrac.getvJakejeMistnosti() - 3);
+                             System.out.println("Přešel jsi do místnosti " + herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
+                             vypisObsahMistnosti(seznamVeci, seznamPratel, hrac, scaner);
                          } else {
-                             System.out.println("Nemuzes jit nahoru");
+                             System.out.println("Nemůžeš jít nahoru");
                          }
                      }
                      break;
@@ -96,15 +82,11 @@ public class Hra {
                          System.out.println("Vylezl jsi mimo mapu");
                      } else {
                          if (herniMapa.get(hrac.getvJakejeMistnosti()).isJich()) {
-                             if (nepritelVmistnosti(seznamPratel, hrac.getvJakejeMistnosti() + 3)) {
-                                 System.out.println("Konec hry. Zabil vas nepritel");
-                             } else {
-                                 hrac.setvJakejeMistnosti(hrac.getvJakejeMistnosti() + 3);
-                                 System.out.println(" Presel si do mistnosti " + herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
-                                 overUkonceniHry(seznamVeci, hrac);
-                             }
+                             hrac.setvJakejeMistnosti(hrac.getvJakejeMistnosti() + 3);
+                             System.out.println("Přešel jsi do místnosti " + herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
+                             vypisObsahMistnosti(seznamVeci, seznamPratel, hrac, scaner);
                          } else {
-                             System.out.println("Nemuzes jit dolu");
+                             System.out.println("Nemůžeš jít dolů");
                          }
                      }
                      break;
@@ -113,15 +95,11 @@ public class Hra {
                          System.out.println("Vylezl jsi mimo mapu");
                      } else {
                          if (herniMapa.get(hrac.getvJakejeMistnosti()).isVychod()) {
-                             if (nepritelVmistnosti(seznamPratel, hrac.getvJakejeMistnosti() - 1)) {
-                                 System.out.println("Konec hry. Zabil vas nepritel");
-                             } else {
-                                 hrac.setvJakejeMistnosti(hrac.getvJakejeMistnosti() - 1);
-                                 System.out.println(" Presel si do mistnosti " + herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
-                                 overUkonceniHry(seznamVeci, hrac);
-                             }
+                             hrac.setvJakejeMistnosti(hrac.getvJakejeMistnosti() - 1);
+                             System.out.println("Přešel jsi do místnosti " + herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
+                             vypisObsahMistnosti(seznamVeci, seznamPratel, hrac, scaner);
                          } else {
-                             System.out.println("Nemuzes jit dolu");
+                             System.out.println("Nemůžeš jít východně");
                          }
                      }
                      break;
@@ -130,20 +108,13 @@ public class Hra {
                          System.out.println("Vylezl jsi mimo mapu");
                      } else {
                          if (herniMapa.get(hrac.getvJakejeMistnosti()).isZapad()) {
-                             if (nepritelVmistnosti(seznamPratel, hrac.getvJakejeMistnosti() + 1)) {
-                                 System.out.println("Konec hry. Zabil vas nepritel");
-                             } else {
-                                 hrac.setvJakejeMistnosti(hrac.getvJakejeMistnosti() + 1);
-                                 System.out.println(" Presel si do mistnosti " + herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
-                                 overUkonceniHry(seznamVeci, hrac);
-                             }
+                             hrac.setvJakejeMistnosti(hrac.getvJakejeMistnosti() + 1);
+                             System.out.println("Přešel jsi do místnosti " + herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
+                             vypisObsahMistnosti(seznamVeci, seznamPratel, hrac, scaner);
                          } else {
-                             System.out.println("Nemuzes jit dolu");
+                             System.out.println("Nemůžeš jít západně");
                          }
                      }
-                     break;
-                 case "útok":
-                     utok();
                      break;
                  case "konec":
                      System.out.println("Konec hry.");
@@ -175,26 +146,6 @@ public class Hra {
              }
          } while (true);
      }
-
-    private static void utok() {
-        int zivotyNepřítele = 100;
-        System.out.println("Útočíte a ubíráte nepříteli 10 životů.");
-        zivotyNepřítele -= 10;
-        if (zivotyNepřítele > 0) {
-            System.out.println("Nepřítel nyní má " + zivotyNepřítele + " životů. Pokračujte v útoku nebo zkuste jinou akci.");
-        }
-    }
-    //hleda vyherni predmet a pokud ho najde tak hra skonci
-    public static void overUkonceniHry(ArrayList<Veci> seznamVeciK, Hrac hracK) {
-        for(int i = 0; i < seznamVeciK.size(); i++){
-            if (seznamVeciK.get(i).getCisloMistnosti() == hracK.getvJakejeMistnosti()){
-                if (seznamVeciK.get(i).isUkoncujici()){
-                    System.out.println("--------- V mistnosti je predmet, ktery ukoncuje hru vyhrou! ---------");
-                    System.exit(0);
-                }
-            }
-        }
-    }
 
     //zobrazi herni svet, ktery existuje v objektu, ktery byl inicializovan z textoveho souboru
     public static void zobrazSachovnici(ArrayList<Mistnosti> herniMapa) {
@@ -247,7 +198,7 @@ public class Hra {
         boolean jeNepritelVMistnosti = false;
         String seznamNepritelu = " ";
         for (int i = 0; i < seznamPratel.size(); i++) {
-            if (seznamPratel.get(i).getCisloMistnosti() == cisloMistnosti  && seznamPratel.get(i).isJeNepritel()) {
+            if (seznamPratel.get(i).getCisloMistnosti() == cisloMistnosti && seznamPratel.get(i).isJeNepritel()) {
                 jeNepritelVMistnosti = true;
                 seznamNepritelu += seznamPratel.get(i).getJmeno() + " ";
             }
@@ -267,7 +218,7 @@ public class Hra {
         } else return false;
     }
     // vypisuje obsah mistnosti
-    public static void vypisObsahMistnosti(ArrayList<Veci> seznamVeci, ArrayList<Pritel> seznamPratel, Hrac hrac) {
+    public static void vypisObsahMistnosti(ArrayList<Veci> seznamVeci, ArrayList<Pritel> seznamPratel, Hrac hrac, Scanner scanner) {
         boolean jePredmetvmistnosti = false;
         String seznamPredmetu = "  ";
         for (int i = 0; i < seznamVeci.size(); i++) {
@@ -293,6 +244,34 @@ public class Hra {
             System.out.println("V mistnosti jsou pratele: " + seznamPrateli);
         } else {
             System.out.println("V mistnosti nejsou zadne pratele ");
+        }
+
+        if (nepritelVmistnosti(seznamPratel, hrac.getvJakejeMistnosti())) {
+            Pritel nepritel = null;
+            for (Pritel pritel : seznamPratel) {
+                if (pritel.getCisloMistnosti() == hrac.getvJakejeMistnosti() && pritel.isJeNepritel()) {
+                    nepritel = pritel;
+                    break;
+                }
+            }
+            if (nepritel != null) {
+                System.out.println("V místnosti je nepřítel " + nepritel.getJmeno() + ". Chcete s ním bojovat? (ano/ne)");
+                String odpoved = scanner.nextLine().toLowerCase();
+                if (odpoved.equals("ano")) {
+                    boolean vyhralHrac = nepritel.bojSNepritelem(scanner, hrac);
+                    if (vyhralHrac) {
+                        System.out.println("Gratuluji, vyhrál jsi!");
+                    } else {
+                        System.out.println("Bohužel, prohrál jsi.");
+                    }
+                } else if (odpoved.equals("ne")) {
+                    System.out.println("Rozhodl jste se utéct, ale nebylo to dostatečně rychlé!");
+                    hrac.ubratZivoty(30);
+                    System.out.println("Hráč ztrácí 30 životů a zbývá mu " + hrac.getZivoty() + " životů.");
+                } else {
+                    System.out.println("Nerozumím, zopakujte prosím vaši odpověď.");
+                }
+            }
         }
     }
 }
