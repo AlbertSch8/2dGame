@@ -44,12 +44,8 @@ public class Hrac extends Herniobjekt {
         this.zivoty = zivoty;
     }
 
-    // Přidáme metodu pro ubírání životů
     public void ubratZivoty(int zivoty) {
         this.zivoty -= zivoty;
-        if (this.zivoty < 0) {
-            this.zivoty = 0;
-        }
     }
 
 }
