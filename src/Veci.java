@@ -1,16 +1,14 @@
 public class Veci extends Herniobjekt {
     private boolean jeSebratelny;
     private int cisloMistnosti;
-    private boolean jeUkoncujici;
     private int hmotnost;
 
     private static int celkovaHmotnost = 0;
 
-    public Veci(String jmeno, String popis, boolean jeSebratelny, int cisloMistnosti, boolean jeUkocujici, int hmotnost) throws Exception{
+    public Veci(String jmeno, String popis, boolean jeSebratelny, int cisloMistnosti, int hmotnost) throws Exception{
         super(jmeno, popis);
         this.jeSebratelny = jeSebratelny;
         this.cisloMistnosti = cisloMistnosti;
-        this.jeUkoncujici = jeUkocujici;
 
         if (hmotnost != 10 && hmotnost != 20 && hmotnost != 30) {
             throw new IllegalArgumentException("Hmotnost musí být 10, 20 nebo 30.");
@@ -42,13 +40,6 @@ public class Veci extends Herniobjekt {
 
     public void setCisloMistnosti(int cisloMistnosti) {
         this.cisloMistnosti = cisloMistnosti;
-    }
-    public boolean isUkoncujici() {
-        return jeUkoncujici;
-    }
-
-    public void setUkoncujici (boolean jeUkoncujici) {
-        this.jeUkoncujici = jeUkoncujici;
     }
 }
 
