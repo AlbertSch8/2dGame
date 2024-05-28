@@ -5,8 +5,17 @@ import java.awt.event.ActionListener;
 
 public class GUI extends JFrame {
 
-    private String txtvstup;
-    private boolean zadanytext = true;
+    public String getZadanyText() {
+        zmacknutetlacitko = false;
+        return zadanyText;
+    }
+
+    private String zadanyText = "";
+    private boolean zmacknutetlacitko = false;
+
+    public boolean isZmacknutetlacitko() {
+        return zmacknutetlacitko;
+    }
 
     public GUI(String mistnost1, String mistnost2, String mistnost3, String mistnost4, String mistnost5, String mistnost6, String mistnost7, String mistnost8, String mistnost9) {
         JFrame frame = new JFrame("GridBagLayout Demo");
@@ -117,12 +126,9 @@ public class GUI extends JFrame {
         // Action listener for the submit button
         btnSubmit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                if (zadanytext) {
-                    txtvstup = txtInput.getText();
-                    lblOutput.setText(txtvstup);
-                    zadanytext = true;
-                }else {
-                    zadanytext = false;
+                if (zmacknutetlacitko == true) {
+                    zadanyText = txtInput.getText();
+                    lblOutput.setText(zadanyText);
                 }
             }
         });
