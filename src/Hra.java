@@ -25,8 +25,9 @@ public class Hra {
              while ((line = reader.readLine()) != null) {
                  //System.out.println(line);
                  nacteniPolozky = line.split(",");
-                 GUI gui = new GUI(nacteniPolozky[0], nacteniPolozky[1],nacteniPolozky[2],nacteniPolozky[3],nacteniPolozky[4],nacteniPolozky[5],nacteniPolozky[6],nacteniPolozky[7],nacteniPolozky[8]);
+                 herniMapa.add(new Mistnosti(nacteniPolozky[0], prevedStringNaBoolean(nacteniPolozky[1]), prevedStringNaBoolean(nacteniPolozky[2]), prevedStringNaBoolean(nacteniPolozky[3]), prevedStringNaBoolean(nacteniPolozky[4])));
              }
+             GUI gui = new GUI("Divoka reka","Virivka","Sauna","Vnitrni bazen","Recepce","Bufet","Vnitrni tobogan","Sprchy","Vnejsi bazen");
              reader.close();
          } catch (FileNotFoundException e) {
              System.out.println("Soubor nenalezen");
@@ -53,6 +54,7 @@ public class Hra {
          System.out.println("----------------------------------------------------------------------");
 
          do {
+             GUI gui = new GUI(herniMapa.get(0).getJmeno(),herniMapa.get(1).getJmeno(),herniMapa.get(2).getJmeno(),herniMapa.get(3).getJmeno(),herniMapa.get(4).getJmeno(),herniMapa.get(5).getJmeno(),herniMapa.get(6).getJmeno(),herniMapa.get(7).getJmeno(),herniMapa.get(8).getJmeno());
              System.out.println("Pouzij tyhle pro prikazy pro hrani hry: ");
              System.out.println("-Smery: sever, jih, vychod, zapad");
              System.out.println("-zvedni");
@@ -157,7 +159,6 @@ public class Hra {
 
         for (int i = 0; i < herniMapa.size(); i++) {
             pole[radek][sloupec] = herniMapa.get(i).getJmeno();
-
             sloupec++;
             if (sloupec == 3) {
                 sloupec = 0;
