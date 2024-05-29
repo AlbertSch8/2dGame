@@ -8,16 +8,14 @@ public class Hrac extends Herniobjekt {
         super(jmeno, popis);
         this.vJakejeMistnosti = vJakejeMistnosti;
         this.zivoty = pocatecniZivoty;
-        jeAktivniStit = false;
+        this.jeAktivniStit = false;
     }
 
     public int getvJakejeMistnosti() {
-
         return vJakejeMistnosti;
     }
 
     public void setvJakejeMistnosti(int vJakejeMistnosti) {
-
         this.vJakejeMistnosti = vJakejeMistnosti;
     }
 
@@ -33,13 +31,14 @@ public class Hrac extends Herniobjekt {
         return jeAktivniStit;
     }
 
-    public void aktivovatStit(double efektivita) {
+    public void aktivovatStit(double stitEfektivita) {
         this.jeAktivniStit = true;
     }
 
     public void deaktivovatStit() {
         this.jeAktivniStit = false;
     }
+
     public void setZivoty(int zivoty) {
         this.zivoty = zivoty;
     }
@@ -48,7 +47,16 @@ public class Hrac extends Herniobjekt {
         this.zivoty -= zivoty;
     }
 
-}
+    public void utoc(Pritel pritel) {
+        int utocnaSilaHrace = 10;
 
+        pritel.setZivoty(pritel.getZivoty() - utocnaSilaHrace);
+        System.out.println("Útočíte na " + pritel.getJmeno() + " a ubíráte mu " + utocnaSilaHrace + " životů.");
+    }
+
+    public void zobrazZivoty() {
+        System.out.println("Aktuální počet životů hráče: " + zivoty);
+    }
+}
 
 
