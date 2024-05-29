@@ -159,7 +159,7 @@ public class Hra {
             }
         } while (true);
     }
-    public void pouzitPredmet(Batoh batoh, Hrac hrac, String jmeno) {
+    public static void pouzitPredmet(Batoh batoh, Hrac hrac, String jmeno) {
         for (Veci vec : batoh.getBatoh()) {
             if (vec.getJmeno().equalsIgnoreCase(jmeno)) {
                 if (vec instanceof LecivyPredmet) {
@@ -232,7 +232,7 @@ public class Hra {
         } else return false;
     }
     // vypisuje obsah mistnosti
-    public void vypisObsahMistnosti(ArrayList<Veci> veci, ArrayList<Pritel> pratele, Hrac hrac, Scanner scanner) {
+    public static void vypisObsahMistnosti(ArrayList<Veci> veci, ArrayList<Pritel> pratele, Hrac hrac, Scanner scanner) {
         for (Veci vec : veci) {
             if (vec.getCisloMistnosti() == hrac.getvJakejeMistnosti()) {
                 System.out.println("V místnosti se nachází " + vec.getJmeno());
