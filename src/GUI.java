@@ -23,6 +23,16 @@ public class GUI extends JFrame  implements ActionListener  {
     //indikuje zmáčknutí submit buttonu
     private boolean zmacknuteSubmittlacitko = false;
 
+    JButton btn1 = new JButton();
+    JButton btn2 = new JButton();
+    JButton btn3 = new JButton();
+    JButton btn4 = new JButton();
+    JButton btn5 = new JButton();
+    JButton btn6 = new JButton();
+    JButton btn7 = new JButton();
+    JButton btn8 = new JButton();
+    JButton btn9 = new JButton();
+
 
     public String getZadanyText() {
         zmacknuteSubmittlacitko = false;
@@ -37,24 +47,28 @@ public class GUI extends JFrame  implements ActionListener  {
         return zmacknuteSubmittlacitko;
     }
 
-    public GUI(String mistnost1, String mistnost2, String mistnost3, String mistnost4, String mistnost5, String mistnost6, String mistnost7, String mistnost8, String mistnost9) {
-        JFrame frame = new JFrame("GridBagLayout Demo");
+    public void settaText(String zobrazText) {
+        ta.setText(zobrazText);
+    }
 
-        JButton btn1 = new JButton(mistnost1);
-        JButton btn2 = new JButton(mistnost2);
-        JButton btn3 = new JButton(mistnost3);
-        JButton btn4 = new JButton(mistnost4);
-        JButton btn5 = new JButton(mistnost5);
-        JButton btn6 = new JButton(mistnost6);
-        JButton btn7 = new JButton(mistnost7);
-        JButton btn8 = new JButton(mistnost8);
-        JButton btn9 = new JButton(mistnost9);
+    public GUI(String mistnost1, String mistnost2, String mistnost3, String mistnost4, String mistnost5, String mistnost6, String mistnost7, String mistnost8, String mistnost9) {
+        JFrame frame = new JFrame("Zombieland");
+
+        btn1.setText(mistnost1);
+        btn2.setText(mistnost2);
+        btn3.setText(mistnost3);
+        btn4.setText(mistnost4);
+        btn5.setText(mistnost5);
+        btn6.setText(mistnost6);
+        btn7.setText(mistnost7);
+        btn8.setText(mistnost8);
+        btn9.setText(mistnost9);
+
 
         JButton lastBtn = new JButton("Last Button");
         JButton longBtn = new JButton("Long Button");
-        //JLabel lblOutput = new JLabel("zatim nic");
         JTextField txtInput = new JTextField(20);
-        JButton btnSubmit = new JButton("Submit");
+        JButton btnSubmit = new JButton("Potvrd");
 
         // Set preferred, minimum, and maximum sizes for 3x3 buttons to make them smaller
         Dimension buttonSize = new Dimension(160, 100); // Adjust size as needed
@@ -169,6 +183,8 @@ public class GUI extends JFrame  implements ActionListener  {
 
         ta = new JTextArea();
         ta.setBounds(5,5,360,320);
+        ta.setEditable(false);
+        panel.add(ta, cst);
 
         // add menu to menu bar
         mb.add(x);
@@ -204,5 +220,4 @@ public class GUI extends JFrame  implements ActionListener  {
             System.exit(0);
         }
     }
-
 }
