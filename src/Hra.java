@@ -24,7 +24,6 @@ public class Hra {
                 nacteniPolozky = line.split(",");
                 herniMapa.add(new Mistnosti(nacteniPolozky[0], prevedStringNaBoolean(nacteniPolozky[1]), prevedStringNaBoolean(nacteniPolozky[2]), prevedStringNaBoolean(nacteniPolozky[3]), prevedStringNaBoolean(nacteniPolozky[4])));
             }
-            GUI gui = new GUI("Divoka reka", "Virivka", "Sauna", "Vnitrni bazen", "Recepce", "Bufet", "Vnitrni tobogan", "Sprchy", "Vnejsi bazen");
             reader.close();
         } catch (FileNotFoundException e) {
             System.out.println("Soubor nenalezen");
@@ -33,96 +32,83 @@ public class Hra {
         } catch (Exception e) {
             System.out.println("Nekde je chyba");
         }
-        seznamPratel.add(new Pritel("Krokodyl", "", false, true, 8, 110));
-        seznamPratel.add(new Pritel("Zombie", "", false, true, 0, 50));
+        seznamPratel.add(new Pritel("Zombie", "", false, true, 8, 110));
+        seznamPratel.add(new Pritel("Vlkodlak", "", false, true, 0, 50));
         seznamVeci.add(new LecivyPredmet("Oko", "", true, 6, 30));
         seznamVeci.add(new LecivyPredmet("krev", "",true,1,20));
         seznamVeci.add(new Veci("Poklad","",true, 8,20,0));
 
+        GUI gui = new GUI(herniMapa.get(0).getJmeno(), herniMapa.get(1).getJmeno(), herniMapa.get(2).getJmeno(), herniMapa.get(3).getJmeno(), herniMapa.get(4).getJmeno(), herniMapa.get(5).getJmeno(), herniMapa.get(6).getJmeno(), herniMapa.get(7).getJmeno(), herniMapa.get(8).getJmeno());
         zobrazSachovnici(herniMapa);
-        System.out.println(" ");
-        System.out.println("                ------Nachazite se v mistnosti recepce-----");
-        System.out.println("Herni svet pocita s 3x3 mapou, ktera je na zacatku hry vykreslena");
-        System.out.println("");
-        System.out.println("----------------------------------------------------------------------");
+        gui.settaText("\nPouzij tyhle pro prikazy pro hrani hry:" +
+                "\n-Smery: sever, jih, vychod, zapad\n-zvedni a vypit\n------------------------------------");
 
         do {
-            GUI gui = new GUI(herniMapa.get(0).getJmeno(), herniMapa.get(1).getJmeno(), herniMapa.get(2).getJmeno(), herniMapa.get(3).getJmeno(), herniMapa.get(4).getJmeno(), herniMapa.get(5).getJmeno(), herniMapa.get(6).getJmeno(), herniMapa.get(7).getJmeno(), herniMapa.get(8).getJmeno());
-            System.out.println("Pouzij tyhle pro prikazy pro hrani hry: ");
-            System.out.println("-Smery: sever, jih, vychod, zapad");
-            System.out.println("-zvedni");
-            System.out.println("-co je v mistnosti?");
-            System.out.println("-konec = ukonceni hry");
-            System.out.println("------------------------------------");
-
-            //Hlavni logika programu, ktera vyuziva ruzne objekty na zaklade spolecneho indexu v sachovnici
-             String prikaz = "";
+            String prikaz = "";
             while (gui.isZmacknutetlacitko()) {
                 prikaz = gui.getZadanyText();
-                }
+                gui.settaText("----------------");
+            }
+            //Hlavni logika programu, ktera vyuziva ruzne objekty na zaklade spolecneho indexu v sachovnici
             switch (prikaz) {
                 case "sever":
                     if (hrac.getvJakejeMistnosti() == 0 || hrac.getvJakejeMistnosti() == 1 || hrac.getvJakejeMistnosti() == 2) {
-                        System.out.println("Vylezl jsi mimo mapu");
+                        gui.settaText("Vylezl jsi mimo mapu");
                     } else {
                         if (herniMapa.get(hrac.getvJakejeMistnosti()).isSever()) {
                             hrac.setvJakejeMistnosti(hrac.getvJakejeMistnosti() - 3);
-                            System.out.println("Přešel jsi do místnosti " + herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
+                            gui.settaText("Přešel jsi do místnosti " + herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
                             vypisObsahMistnosti(seznamVeci, seznamPratel, hrac, scaner);
                         } else {
-                            System.out.println("Nemůžeš jít nahoru");
+                            gui.settaText("Nemůžeš jít nahoru");
                         }
                     }
                     break;
                 case "jih":
                     if (hrac.getvJakejeMistnosti() == 6 || hrac.getvJakejeMistnosti() == 7 || hrac.getvJakejeMistnosti() == 8) {
-                        System.out.println("Vylezl jsi mimo mapu");
+                        gui.settaText("Vylezl jsi mimo mapu");
                     } else {
                         if (herniMapa.get(hrac.getvJakejeMistnosti()).isJich()) {
                             hrac.setvJakejeMistnosti(hrac.getvJakejeMistnosti() + 3);
-                            System.out.println("Přešel jsi do místnosti " + herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
+                            gui.settaText("Přešel jsi do místnosti " + herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
                             vypisObsahMistnosti(seznamVeci, seznamPratel, hrac, scaner);
                         } else {
-                            System.out.println("Nemůžeš jít dolů");
+                            gui.settaText("Nemůžeš jít dolů");
                         }
                     }
                     break;
                 case "vychod":
                     if (hrac.getvJakejeMistnosti() == 0 || hrac.getvJakejeMistnosti() == 3 || hrac.getvJakejeMistnosti() == 6) {
-                        System.out.println("Vylezl jsi mimo mapu");
+                        gui.settaText("Vylezl jsi mimo mapu");
                     } else {
                         if (herniMapa.get(hrac.getvJakejeMistnosti()).isVychod()) {
                             hrac.setvJakejeMistnosti(hrac.getvJakejeMistnosti() - 1);
-                            System.out.println("Přešel jsi do místnosti " + herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
+                            gui.settaText("Přešel jsi do místnosti " + herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
                             vypisObsahMistnosti(seznamVeci, seznamPratel, hrac, scaner);
                         } else {
-                            System.out.println("Nemůžeš jít východně");
+                            gui.settaText("Nemůžeš jít východně");
                         }
                     }
                     break;
                 case "zapad":
                     if (hrac.getvJakejeMistnosti() == 2 || hrac.getvJakejeMistnosti() == 5 || hrac.getvJakejeMistnosti() == 8) {
-                        System.out.println("Vylezl jsi mimo mapu");
+                         gui.settaText("Vylezl jsi mimo mapu");
                     } else {
                         if (herniMapa.get(hrac.getvJakejeMistnosti()).isZapad()) {
                             hrac.setvJakejeMistnosti(hrac.getvJakejeMistnosti() + 1);
-                            System.out.println("Přešel jsi do místnosti " + herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
+                            gui.settaText("Přešel jsi do místnosti " + herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
                             vypisObsahMistnosti(seznamVeci, seznamPratel, hrac, scaner);
                         } else {
-                            System.out.println("Nemůžeš jít západně");
+                            gui.settaText("Nemůžeš jít západně");
                         }
                     }
                     break;
-                case "konec":
-                    System.out.println("Konec hry.");
-                    scaner.close();
-                    return;
                 case "zvedni":
-                    System.out.println("Zadej jmeno objektu co chces zvednout:");
+                    gui.settaText("Zadej jmeno objektu co chces zvednout:");
                     String jmeno = scaner.nextLine();
                     for (int i = 0; i < seznamVeci.size(); i++) {
                         if (batoh.isJePlny()) {
-                            System.out.println("Mate plny batoh");
+                            gui.settaText("Mate plny batoh");
                         } else {
                             if (seznamVeci.get(i).getCisloMistnosti() == hrac.getvJakejeMistnosti()) {
                                 if (seznamVeci.get(i).getJmeno().equals(jmeno)) {
@@ -132,7 +118,7 @@ public class Hra {
                                         seznamVeci.remove(i);
                                         batoh.vypisObsah();
                                         if (v.getJmeno().equals("Poklad")) {
-                                            System.out.println("Sebral jsi poklad! Vyhrál jsi hru!");
+                                            gui.settaText("Sebral jsi poklad! Vyhrál jsi hru!");
                                             scaner.close();
                                             return;
                                         }
@@ -143,17 +129,17 @@ public class Hra {
                     }
                     break;
                 case "vypit":
-                    System.out.println("Zadej název předmětu, který chceš vypít:");
+                    gui.settaText("Zadej název předmětu, který chceš vypít:");
                     String predmet = scaner.nextLine();
                     pouzitPredmet(batoh, hrac, predmet);
                     hrac.zobrazZivoty(); // Zde přidáme volání metody pro zobrazení životů hráče po vypití předmětu
                     break;
                 default:
-                    System.out.println("Neplatný prikaz.");
+                    gui.settaText("Neplatný prikaz.");
 
             }
             if (hrac.getZivoty() <= 0) {
-                System.out.println("Byl jsi zabit! Hra končí.");
+                gui.settaText("Byl jsi zabit! Hra končí.");
                 scaner.close();
                 return;
             }
