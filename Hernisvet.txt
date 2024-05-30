@@ -1,0 +1,9 @@
+Divoka reka,0,1,0,1
+Virivka,0,1,1,1
+Sauna,0,1,1,0
+Vnitrni bazen,1,1,0,1
+Recepce,1,1,1,1
+Bufet,1,1,1,0
+Vnitrni tobogan,1,0,0,1
+Sprchy,1,0,1,1
+Vnejsi bazen,1,0,1,0

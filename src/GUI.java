@@ -3,18 +3,38 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GUI extends JFrame {
+public class GUI extends JFrame  implements ActionListener  {
+
+    // JMenuBar
+    static JMenuBar mb;
+
+    // JMenu
+    static JMenu x;
+
+    // Menu items
+    static JMenuItem m1, m2, m3;
+
+    static JTextArea ta;
+    static JLabel lblOutput = new JLabel("zatim nic");
+
+    // obsahuje zadany text z textoveho pole
+    private String zadanyText = "";
+
+    //indikuje zmáčknutí submit buttonu
+    private boolean zmacknuteSubmittlacitko = false;
+
 
     public String getZadanyText() {
-        zmacknutetlacitko = false;
+        zmacknuteSubmittlacitko = false;
         return zadanyText;
     }
 
-    private String zadanyText = "";
-    private boolean zmacknutetlacitko = false;
+    public void setInfoText(String zobrazText) {
+        lblOutput.setText(zobrazText);
+    }
 
     public boolean isZmacknutetlacitko() {
-        return zmacknutetlacitko;
+        return zmacknuteSubmittlacitko;
     }
 
     public GUI(String mistnost1, String mistnost2, String mistnost3, String mistnost4, String mistnost5, String mistnost6, String mistnost7, String mistnost8, String mistnost9) {
@@ -30,11 +50,9 @@ public class GUI extends JFrame {
         JButton btn8 = new JButton(mistnost8);
         JButton btn9 = new JButton(mistnost9);
 
-
-
         JButton lastBtn = new JButton("Last Button");
         JButton longBtn = new JButton("Long Button");
-        JLabel lblOutput = new JLabel("zatim nic");
+        //JLabel lblOutput = new JLabel("zatim nic");
         JTextField txtInput = new JTextField(20);
         JButton btnSubmit = new JButton("Submit");
 
@@ -126,23 +144,65 @@ public class GUI extends JFrame {
         // Action listener for the submit button
         btnSubmit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                if (zmacknutetlacitko == true) {
-                    zadanyText = txtInput.getText();
-                    lblOutput.setText(zadanyText);
-                }
+                zadanyText = txtInput.getText();
+                lblOutput.setText(zadanyText);
+                zmacknuteSubmittlacitko = true;
             }
         });
 
+
+        // create a menubar
+        mb = new JMenuBar();
+
+        // create a menu
+        x = new JMenu("Menu");
+
+        // create menuitems
+        m1 = new JMenuItem("MenuItem1");
+        m2 = new JMenuItem("MenuItem2");
+        m3 = new JMenuItem("Konec");
+
+        // add menu items to menu
+        x.add(m1);
+        x.add(m2);
+        x.add(m3);
+
+        ta = new JTextArea();
+        ta.setBounds(5,5,360,320);
+
+        // add menu to menu bar
+        mb.add(x);
+
+        m1.addActionListener(this);
+        m2.addActionListener(this);
+        m3.addActionListener(this);
+
+        // add menubar to frame
+        frame.setJMenuBar(mb);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1200, 1100);
         frame.getContentPane().add(panel);
         frame.setVisible(true);
     }
 
-    public class EventSoucet implements ActionListener {
 
-        public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)
+    {
+        String s = e.getActionCommand();
+        if(e.getSource()==m1){
 
+            lblOutput.setText("Vybrana polozka menu 1");
+        }
+
+        if(e.getSource()==m2){
+
+            lblOutput.setText("Vybrana polozka menu 2");
+        }
+        if(e.getSource()==m3){
+
+            lblOutput.setText("Konec");
+            System.exit(0);
         }
     }
+
 }
