@@ -47,13 +47,6 @@ public class Hrac extends Herniobjekt {
         this.zivoty -= zivoty;
     }
 
-    public void utoc(Pritel pritel) {
-        int utocnaSilaHrace = 10;
-
-        pritel.setZivoty(pritel.getZivoty() - utocnaSilaHrace);
-        System.out.println("Útočíte na " + pritel.getJmeno() + " a ubíráte mu " + utocnaSilaHrace + " životů.");
-    }
-
     public void zobrazZivoty() {
         System.out.println("Aktuální počet životů hráče: " + zivoty);
     }
