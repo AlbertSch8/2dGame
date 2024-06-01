@@ -6,52 +6,70 @@ import java.awt.event.ActionListener;
 public class GUI extends JFrame  implements ActionListener  {
 
     // JMenuBar
-    static JMenuBar mb;
+    private JMenuBar mb;
 
     // JMenu
-    static JMenu x;
+    private JMenu x;
 
     // Menu items
-    static JMenuItem m1, m2, m3;
+    private JMenuItem m1, m2, m3;
 
-    static JTextArea ta;
-    static JLabel lblOutput = new JLabel("zatim nic");
+    //
+    private JTextArea ta = new JTextArea(" Použij tyto příkazy pro hraní hry:\n Směry: sever, jih, vychod, zapad\n Akce: zvedni a vypit \n ");
 
-    // obsahuje zadany text z textoveho pole
-    private String zadanyText = "";
+    // Jlabel - staus from game
+    private JLabel lblOutput = new JLabel(" no text");
+    private JLabel lblZivoty = new JLabel("Zdraví hráče: 100%");
 
-    //indikuje zmáčknutí submit buttonu
-    private boolean zmacknuteSubmittlacitko = false;
+    //JButton - game rooms and submit button
 
-    JButton btn1 = new JButton();
-    JButton btn2 = new JButton();
-    JButton btn3 = new JButton();
-    JButton btn4 = new JButton();
-    JButton btn5 = new JButton();
-    JButton btn6 = new JButton();
-    JButton btn7 = new JButton();
-    JButton btn8 = new JButton();
-    JButton btn9 = new JButton();
+    private JButton btn1 = new JButton();
+    private JButton btn2 = new JButton();
+    private JButton btn3 = new JButton();
+    private JButton btn4 = new JButton();
+    private JButton btn5 = new JButton();
+    private JButton btn6 = new JButton();
+    private JButton btn7 = new JButton();
+    private JButton btn8 = new JButton();
+    private JButton btn9 = new JButton();
 
+    private JButton btnSubmit = new JButton("Submit");
 
-    public String getZadanyText() {
-        zmacknuteSubmittlacitko = false;
-        return zadanyText;
+    private JDialog modelDialog;
+    private JDialog modelDialogH;
+
+    // entered command
+    private JTextField txtInput = new JTextField(20);
+
+    // test from input field
+    private String zadanyPrikaz = "";
+
+    // indicate submitted button
+    private boolean zmacknuteSubmitTlacitko = false;
+
+    public String getZadanyPrikaz() {
+        zmacknuteSubmitTlacitko = false;
+        return zadanyPrikaz;
     }
 
     public void setInfoText(String zobrazText) {
         lblOutput.setText(zobrazText);
     }
 
-    public boolean isZmacknutetlacitko() {
-        return zmacknuteSubmittlacitko;
+    public void setZivotText(String zobrazText) {
+        lblZivoty.setText("Zdraví hráče:n"+ zobrazText+"%");
     }
 
-    public void settaText(String zobrazText) {
+    public boolean isZmacknutetlacitko() {
+        return zmacknuteSubmitTlacitko;
+    }
+
+    public void setTaText(String zobrazText) {
         ta.setText(zobrazText);
     }
 
     public GUI(String mistnost1, String mistnost2, String mistnost3, String mistnost4, String mistnost5, String mistnost6, String mistnost7, String mistnost8, String mistnost9) {
+
         JFrame frame = new JFrame("Zombieland");
 
         btn1.setText(mistnost1);
@@ -64,11 +82,8 @@ public class GUI extends JFrame  implements ActionListener  {
         btn8.setText(mistnost8);
         btn9.setText(mistnost9);
 
-
-        JButton lastBtn = new JButton("Last Button");
-        JButton longBtn = new JButton("Long Button");
         JTextField txtInput = new JTextField(20);
-        JButton btnSubmit = new JButton("Potvrd");
+        btnSubmit   = new JButton("Potvrd");
 
         // Set preferred, minimum, and maximum sizes for 3x3 buttons to make them smaller
         Dimension buttonSize = new Dimension(160, 100); // Adjust size as needed
@@ -79,10 +94,11 @@ public class GUI extends JFrame  implements ActionListener  {
             btn.setMaximumSize(buttonSize);
         }
 
-        JPanel panel = new JPanel(new GridBagLayout());
-        GridBagConstraints cst = new GridBagConstraints();
+        JPanel panel            = new JPanel(new GridBagLayout());
+        GridBagConstraints cst  = new GridBagConstraints();
 
-        cst.insets = new Insets(40, 40, 40, 40); // Adding larger spaces between components
+        // Adding larger spaces between components
+        cst.insets = new Insets(20, 20, 20, 20);
 
         // Last button at the top right corner
         cst.gridx = 3;
@@ -90,7 +106,7 @@ public class GUI extends JFrame  implements ActionListener  {
         cst.gridheight = 1;
         cst.gridwidth = 1;
         cst.fill = GridBagConstraints.HORIZONTAL;
-        panel.add(lastBtn, cst);
+        panel.add(lblZivoty, cst);
 
         // Setting up common constraints for 3x3 buttons
         cst.fill = GridBagConstraints.NONE;
@@ -130,15 +146,6 @@ public class GUI extends JFrame  implements ActionListener  {
         cst.gridx = 2;
         panel.add(btn9, cst);
 
-        // Long button
-        cst.fill = GridBagConstraints.HORIZONTAL;
-        cst.gridwidth = 3;
-        cst.gridx = 0;
-        cst.gridy = 4;
-        cst.weightx = 0;
-        cst.weighty = 0;
-        panel.add(longBtn, cst);
-
         // Text field and submit button
         cst.gridwidth = 2;
         cst.gridx = 0;
@@ -150,20 +157,26 @@ public class GUI extends JFrame  implements ActionListener  {
         panel.add(btnSubmit, cst);
 
         // Label output
+        cst.fill = GridBagConstraints.HORIZONTAL;
         cst.gridwidth = 3;
         cst.gridx = 0;
         cst.gridy = 6;
+        cst.weightx = 0;
+        cst.weighty = 0;
         panel.add(lblOutput, cst);
 
-        // Action listener for the submit button
-        btnSubmit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                zadanyText = txtInput.getText();
-                lblOutput.setText(zadanyText);
-                zmacknuteSubmittlacitko = true;
-            }
-        });
+        // Label output
+        cst.fill = GridBagConstraints.HORIZONTAL;
+        cst.gridwidth = 3;
+        cst.gridx = 0;
+        cst.gridy = 8;
+        cst.weightx = 0;
+        cst.weighty = 0;
+        panel.add(ta, cst);
 
+        ta.setBounds(5,5,360,320);
+        ta.setEditable(false);
+        panel.add(ta, cst);
 
         // create a menubar
         mb = new JMenuBar();
@@ -172,19 +185,14 @@ public class GUI extends JFrame  implements ActionListener  {
         x = new JMenu("Menu");
 
         // create menuitems
-        m1 = new JMenuItem("MenuItem1");
-        m2 = new JMenuItem("MenuItem2");
+        m1 = new JMenuItem("O programu");
+        m2 = new JMenuItem("Nápověda");
         m3 = new JMenuItem("Konec");
 
         // add menu items to menu
         x.add(m1);
         x.add(m2);
         x.add(m3);
-
-        ta = new JTextArea();
-        ta.setBounds(5,5,360,320);
-        ta.setEditable(false);
-        panel.add(ta, cst);
 
         // add menu to menu bar
         mb.add(x);
@@ -193,31 +201,97 @@ public class GUI extends JFrame  implements ActionListener  {
         m2.addActionListener(this);
         m3.addActionListener(this);
 
+        // sent info that game command was submitted
+        btnSubmit.addActionListener(new Hra());
+
+        btnSubmit.addActionListener(
+                new ActionListener(){
+                    public void actionPerformed(ActionEvent evt) {
+                        zadanyPrikaz = txtInput.getText();
+                        zmacknuteSubmitTlacitko = true;
+                        lblOutput.setText(zadanyPrikaz);
+                    };
+                });
+
+        //Modal dialogs
+        modelDialog = createDialog(frame,"Verze");
+        modelDialogH = createDialogH(frame,"Nápověda");
+
         // add menubar to frame
         frame.setJMenuBar(mb);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1200, 1100);
         frame.getContentPane().add(panel);
+        btn6.requestFocus();
+        frame.pack();
         frame.setVisible(true);
     }
-
 
     public void actionPerformed(ActionEvent e)
     {
         String s = e.getActionCommand();
         if(e.getSource()==m1){
-
-            lblOutput.setText("Vybrana polozka menu 1");
+            modelDialog.setVisible(true);
+            //lblOutput.setText("Vybrana polozka menu 1");
         }
 
         if(e.getSource()==m2){
-
-            lblOutput.setText("Vybrana polozka menu 2");
+            modelDialogH.setVisible(true);
+            //lblOutput.setText("Vybrana polozka menu 2");
         }
+
         if(e.getSource()==m3){
 
             lblOutput.setText("Konec");
             System.exit(0);
         }
+    }
+
+    private static JDialog createDialog(final JFrame frame, String textDialog){
+        final JDialog modelDialog = new JDialog(frame,textDialog,
+                Dialog.ModalityType.DOCUMENT_MODAL);
+        modelDialog.setBounds(132, 132, 300, 200);
+        Container dialogContainer = modelDialog.getContentPane();
+        dialogContainer.setLayout(new BorderLayout());
+        dialogContainer.add(new JLabel("       Verze programu 2.1, Albert Schürrer ")
+                , BorderLayout.CENTER);
+        JPanel panel1 = new JPanel();
+        panel1.setLayout(new FlowLayout());
+        JButton okButton = new JButton("Ok");
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                modelDialog.setVisible(false);
+            }
+        });
+
+        panel1.add(okButton);
+        dialogContainer.add(panel1, BorderLayout.SOUTH);
+
+        return modelDialog;
+    }
+
+    private static JDialog createDialogH(final JFrame frame, String textDialog){
+        final JDialog modelDialogH = new JDialog(frame,textDialog,
+                Dialog.ModalityType.DOCUMENT_MODAL);
+        modelDialogH.setBounds(132, 132, 300, 200);
+        Container dialogContainer = modelDialogH.getContentPane();
+        dialogContainer.setLayout(new BorderLayout());
+        dialogContainer.add(new TextArea(" Použij tyto příkazy pro hraní hry:\n Směry: sever, jih, vychod, zapad\n Akce: zvedni a vypit")
+                , BorderLayout.CENTER);
+        JPanel panel1 = new JPanel();
+        panel1.setLayout(new FlowLayout());
+        JButton okButton = new JButton("Ok");
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                modelDialogH.setVisible(false);
+            }
+        });
+
+        panel1.add(okButton);
+        dialogContainer.add(panel1, BorderLayout.SOUTH);
+
+        return modelDialogH;
     }
 }
