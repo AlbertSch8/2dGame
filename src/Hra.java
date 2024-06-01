@@ -57,8 +57,9 @@ public class Hra implements ActionListener {
         seznamPratel.add(new Pritel("Zombie", "", false, true, 8, 110));
         seznamPratel.add(new Pritel("Vlkodlak", "", false, true, 0, 50));
         seznamVeci.add(new LecivyPredmet("Oko", "", true, 6, 30));
-        seznamVeci.add(new LecivyPredmet("krev", "",true,1,20));
+        seznamVeci.add(new LecivyPredmet("Krev", "",true,1,20));
         seznamVeci.add(new Veci("Poklad","",true, 8,20,0));
+        seznamPratel.add(new Pritel("Houba", "", true, false, 1, 110));
 
         gui = new GUI(herniMapa.get(0).getJmeno(), herniMapa.get(1).getJmeno(), herniMapa.get(2).getJmeno(), herniMapa.get(3).getJmeno(), herniMapa.get(4).getJmeno(), herniMapa.get(5).getJmeno(), herniMapa.get(6).getJmeno(), herniMapa.get(7).getJmeno(), herniMapa.get(8).getJmeno());
         zobrazSachovnici(herniMapa);
@@ -137,9 +138,6 @@ public class Hra implements ActionListener {
         } else return false;
     }
     // vypisuje obsah mistnosti
-
-
-
     public static void vypisObsahMistnosti(ArrayList<Veci> veci, ArrayList<Pritel> pratele, Hrac hrac, Scanner scanner) {
         for (Veci vec : veci) {
             if (vec.getCisloMistnosti() == hrac.getvJakejeMistnosti()) {

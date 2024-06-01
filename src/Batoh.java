@@ -32,7 +32,7 @@ public class Batoh extends Herniobjekt {
         this.jePlny = jePlny;
     }
 
-    public void pridejDoBatohu(Veci vec) throws Exception {
+    public void pridejDoxBatohu(Veci vec) throws Exception {
         if (soucasnaHmotnost + vec.getHmotnost() > MAX_HMOTNOST) {
             throw new Exception("Přidáním této věci by byl překročen limit hmotnosti batohu.");
         }
