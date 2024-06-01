@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
 
         try {
-            Hra.SpustHru();
+            Hra.Hra();
         } catch (Exception e) {
             System.err.println("Došlo k výjimce: " + e.getMessage());
             e.printStackTrace();
