@@ -207,7 +207,7 @@ public class Hra implements ActionListener {
         for (Veci vec : veci) {
             if (vec.getCisloMistnosti() == hrac.getvJakejeMistnosti()) {
                 System.out.println("V místnosti se nachází " + vec.getJmeno());
-                txtSeznam = txtSeznam +  "V místnosti se nachází " + vec.getJmeno() + "\n";
+                txtSeznam = txtSeznam + vec.getJmeno() + "\n";
             }
         }
         return txtSeznam;
@@ -229,8 +229,10 @@ public class Hra implements ActionListener {
                     if (herniMapa.get(hrac.getvJakejeMistnosti()).isSever()) {
                         hrac.setvJakejeMistnosti(hrac.getvJakejeMistnosti() - 3);
                         gui.setInfoText("Přešel jsi do místnosti " + herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
+                        gui.setMistnostText(herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
+                        gui.setTaMistnostText(getObsahMistnosti(seznamVeci));
                         //vypisObsahMistnosti(seznamVeci, seznamPratel, hrac, scaner);
-                        gui.setInfoText(getObsahMistnosti(seznamVeci));
+                        //gui.setInfoText(getObsahMistnosti(seznamVeci));
 
                     } else {
                         gui.setInfoText("Nemůžeš jít nahoru");
@@ -243,7 +245,9 @@ public class Hra implements ActionListener {
                 } else {
                     if (herniMapa.get(hrac.getvJakejeMistnosti()).isJich()) {
                         hrac.setvJakejeMistnosti(hrac.getvJakejeMistnosti() + 3);
+                        gui.setMistnostText(herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
                         gui.setInfoText("Přešel jsi do místnosti " + herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
+                        gui.setTaMistnostText(getObsahMistnosti(seznamVeci));
                         //vypisObsahMistnosti(seznamVeci, seznamPratel, hrac, scaner);
                     } else {
                         gui.setInfoText("Nemůžeš jít dolů");
@@ -256,7 +260,9 @@ public class Hra implements ActionListener {
                 } else {
                     if (herniMapa.get(hrac.getvJakejeMistnosti()).isVychod()) {
                         hrac.setvJakejeMistnosti(hrac.getvJakejeMistnosti() - 1);
+                        gui.setMistnostText(herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
                         gui.setInfoText("Přešel jsi do místnosti " + herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
+                        gui.setTaMistnostText(getObsahMistnosti(seznamVeci));
                         //vypisObsahMistnosti(seznamVeci, seznamPratel, hrac, scaner);
                     } else {
                         gui.setInfoText("Nemůžeš jít východně");
@@ -269,7 +275,9 @@ public class Hra implements ActionListener {
                 } else {
                     if (herniMapa.get(hrac.getvJakejeMistnosti()).isZapad()) {
                         hrac.setvJakejeMistnosti(hrac.getvJakejeMistnosti() + 1);
+                        gui.setMistnostText(herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
                         gui.setInfoText("Přešel jsi do místnosti " + herniMapa.get(hrac.getvJakejeMistnosti()).getJmeno());
+                        gui.setTaMistnostText(getObsahMistnosti(seznamVeci));
                         //vypisObsahMistnosti(seznamVeci, seznamPratel, hrac, scaner);
                     } else {
                         gui.setInfoText("Nemůžeš jít západně");
@@ -295,7 +303,5 @@ public class Hra implements ActionListener {
             gui.setInfoText("Byl jsi zabit! Hra končí.");
             return;
         }
-
     }
 }
-
