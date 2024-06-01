@@ -14,26 +14,26 @@ public class GUI extends JFrame  implements ActionListener  {
     // Menu items
     private JMenuItem m1, m2, m3;
 
-    //
-    private JTextArea ta = new JTextArea(" Použij tyto příkazy pro hraní hry:\n Směry: sever, jih, vychod, zapad\n Akce: zvedni a vypit \n ");
+    private JTextArea ta            = new JTextArea(" Použij tyto příkazy pro hraní hry:\n Směry: sever, jih, vychod, zapad\n Akce: zvedni a vypit \n ");
+    private JTextArea taMistnost    = new JTextArea(" Předměty: \n");
+    private JTextArea taNepř        = new JTextArea(" Předměty: \n");
 
     // Jlabel - staus from game
-    private JLabel lblOutput = new JLabel(" no text");
-    private JLabel lblZivoty = new JLabel("Zdraví hráče: 100%");
+    private JLabel lblOutput    = new JLabel(" no text");
+    private JLabel lblZivoty    = new JLabel("Zdraví hráče: 100%");
+    private JLabel lblMistnost  = new JLabel("Místnost: Recepce");
 
     //JButton - game rooms and submit button
-
-    private JButton btn1 = new JButton();
-    private JButton btn2 = new JButton();
-    private JButton btn3 = new JButton();
-    private JButton btn4 = new JButton();
-    private JButton btn5 = new JButton();
-    private JButton btn6 = new JButton();
-    private JButton btn7 = new JButton();
-    private JButton btn8 = new JButton();
-    private JButton btn9 = new JButton();
-
-    private JButton btnSubmit = new JButton("Submit");
+    private JButton btn1        = new JButton();
+    private JButton btn2        = new JButton();
+    private JButton btn3        = new JButton();
+    private JButton btn4        = new JButton();
+    private JButton btn5        = new JButton();
+    private JButton btn6        = new JButton();
+    private JButton btn7        = new JButton();
+    private JButton btn8        = new JButton();
+    private JButton btn9        = new JButton();
+    private JButton btnSubmit   = new JButton("Submit");
 
     private JDialog modelDialog;
     private JDialog modelDialogH;
@@ -56,6 +56,10 @@ public class GUI extends JFrame  implements ActionListener  {
         lblOutput.setText(zobrazText);
     }
 
+    public void setMistnostText(String zobrazText) {
+        lblMistnost.setText("Místnost: "+ zobrazText);
+    }
+
     public void setZivotText(String zobrazText) {
         lblZivoty.setText("Zdraví hráče:n"+ zobrazText+"%");
     }
@@ -66,6 +70,10 @@ public class GUI extends JFrame  implements ActionListener  {
 
     public void setTaText(String zobrazText) {
         ta.setText(zobrazText);
+    }
+
+    public void setTaMistnostText(String zobrazText) {
+        taMistnost.setText("Předměty: \n" + zobrazText);
     }
 
     public GUI(String mistnost1, String mistnost2, String mistnost3, String mistnost4, String mistnost5, String mistnost6, String mistnost7, String mistnost8, String mistnost9) {
@@ -84,6 +92,7 @@ public class GUI extends JFrame  implements ActionListener  {
 
         JTextField txtInput = new JTextField(20);
         btnSubmit   = new JButton("Potvrd");
+        btnSubmit.setToolTipText("Potvrď herní příkaz");
 
         // Set preferred, minimum, and maximum sizes for 3x3 buttons to make them smaller
         Dimension buttonSize = new Dimension(160, 100); // Adjust size as needed
@@ -165,6 +174,24 @@ public class GUI extends JFrame  implements ActionListener  {
         cst.weighty = 0;
         panel.add(lblOutput, cst);
 
+        cst.fill = GridBagConstraints.HORIZONTAL;
+        cst.gridwidth = 3;
+        cst.gridx = 3;
+        cst.gridy = 2;
+        cst.weightx = 0;
+        cst.weighty = 0;
+        panel.add(lblMistnost, cst);
+
+        cst.fill = GridBagConstraints.HORIZONTAL;
+        cst.gridwidth = 3;
+        cst.gridx = 3;
+        cst.gridy = 3;
+        cst.weightx = 0;
+        cst.weighty = 0;
+        taMistnost.setBounds(5,5,30,320);
+        taMistnost.setEditable(false);
+        panel.add(taMistnost, cst);
+
         // Label output
         cst.fill = GridBagConstraints.HORIZONTAL;
         cst.gridwidth = 3;
@@ -172,7 +199,7 @@ public class GUI extends JFrame  implements ActionListener  {
         cst.gridy = 8;
         cst.weightx = 0;
         cst.weighty = 0;
-        panel.add(ta, cst);
+        //panel.add(ta, cst);
 
         ta.setBounds(5,5,360,320);
         ta.setEditable(false);
@@ -196,14 +223,12 @@ public class GUI extends JFrame  implements ActionListener  {
 
         // add menu to menu bar
         mb.add(x);
-
         m1.addActionListener(this);
         m2.addActionListener(this);
         m3.addActionListener(this);
 
         // sent info that game command was submitted
         btnSubmit.addActionListener(new Hra());
-
         btnSubmit.addActionListener(
                 new ActionListener(){
                     public void actionPerformed(ActionEvent evt) {
@@ -214,16 +239,19 @@ public class GUI extends JFrame  implements ActionListener  {
                 });
 
         //Modal dialogs
-        modelDialog = createDialog(frame,"Verze");
+        modelDialog = createDialog(frame,"Zombieland info");
         modelDialogH = createDialogH(frame,"Nápověda");
 
         // add menubar to frame
+        frame.getRootPane().setDefaultButton(btnSubmit);
         frame.setJMenuBar(mb);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1200, 1100);
         frame.getContentPane().add(panel);
-        btn6.requestFocus();
-        frame.pack();
+        btn6.setRequestFocusEnabled(true);
+        btn6.setFocusable(true);
+        btn6.requestFocusInWindow();
+        //frame.pack();
         frame.setVisible(true);
     }
 
@@ -232,16 +260,11 @@ public class GUI extends JFrame  implements ActionListener  {
         String s = e.getActionCommand();
         if(e.getSource()==m1){
             modelDialog.setVisible(true);
-            //lblOutput.setText("Vybrana polozka menu 1");
         }
-
         if(e.getSource()==m2){
             modelDialogH.setVisible(true);
-            //lblOutput.setText("Vybrana polozka menu 2");
         }
-
         if(e.getSource()==m3){
-
             lblOutput.setText("Konec");
             System.exit(0);
         }
@@ -264,10 +287,8 @@ public class GUI extends JFrame  implements ActionListener  {
                 modelDialog.setVisible(false);
             }
         });
-
         panel1.add(okButton);
         dialogContainer.add(panel1, BorderLayout.SOUTH);
-
         return modelDialog;
     }
 
@@ -288,10 +309,8 @@ public class GUI extends JFrame  implements ActionListener  {
                 modelDialogH.setVisible(false);
             }
         });
-
         panel1.add(okButton);
         dialogContainer.add(panel1, BorderLayout.SOUTH);
-
         return modelDialogH;
     }
 }
