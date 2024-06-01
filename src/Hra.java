@@ -65,6 +65,14 @@ public class Hra implements ActionListener {
         zobrazSachovnici(herniMapa);
     }
 
+    /**
+     * Použije předmět z batohu na hráče.
+     *
+     * @param batoh Batoh obsahující předměty, které lze použít
+     * @param hrac Hráč, na kterého bude předmět použit
+     * @param jmeno Jméno předmětu, který má být použit
+     */
+
     public static void pouzitPredmet(Batoh batoh, Hrac hrac, String jmeno) {
         for (Veci vec : batoh.getBatoh()) {
             if (vec.getJmeno().equalsIgnoreCase(jmeno)) {
@@ -91,6 +99,13 @@ public class Hra implements ActionListener {
             }
         }
     }
+
+    /**
+     * Zobrazí herní svět ve formě šachovnice.
+     *
+     * @param herniMapa Seznam místností herní mapy
+     */
+
     //zobrazi herni svet, ktery existuje v objektu, ktery byl inicializovan z textoveho souboru
     public static void zobrazSachovnici(ArrayList<Mistnosti> herniMapa) {
         int radek = 0;
@@ -131,12 +146,29 @@ public class Hra implements ActionListener {
             }
         }
     }
+
+    /**
+     * Převede textovou hodnotu na boolean hodnotu.
+     *
+     * @param hodnota Textová hodnota, která má být převedena na boolean
+     * @return true, pokud je vstupní hodnota "1", jinak false
+     */
     //prevadi 0 a 1 z textoveho souboru na true a false
     public static boolean prevedStringNaBoolean(String hodnota){
         if (hodnota.equals("1")) {
             return true;
         } else return false;
     }
+
+    /**
+     * Vypíše obsah místnosti, včetně předmětů a přátel, které hráč může potkat.
+     * Pokud hráč narazí na nepřítele, je mu nabídnuta možnost útoku.
+     *
+     * @param veci    Seznam věcí ve hře
+     * @param pratele Seznam přátel ve hře
+     * @param hrac    Instance hráče
+     * @param scanner Scanner pro načítání vstupu od hráče
+     */
     // vypisuje obsah mistnosti
     public static void vypisObsahMistnosti(ArrayList<Veci> veci, ArrayList<Pritel> pratele, Hrac hrac, Scanner scanner) {
         for (Veci vec : veci) {
@@ -199,6 +231,13 @@ public class Hra implements ActionListener {
         }
     }
 
+    /**
+     * Vrátí textový seznam obsahu místnosti na základě zadaného seznamu věcí.
+     *
+     * @param veci Seznam věcí ve hře
+     * @return Textový seznam obsahu místnosti
+     */
+
     public static String getObsahMistnosti(ArrayList<Veci> veci) {
 
         String txtSeznam="";
@@ -210,6 +249,12 @@ public class Hra implements ActionListener {
         }
         return txtSeznam;
     }
+
+    /**
+     * Obsluhuje události akcí vyvolané uživatelem, jako je stisknutí tlačítka.
+     *
+     * @param e Událost akce, která byla vyvolána
+     */
 
     public void actionPerformed(ActionEvent e)
     {

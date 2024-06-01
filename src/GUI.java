@@ -47,34 +47,90 @@ public class GUI extends JFrame  implements ActionListener  {
     // indicate submitted button
     private boolean zmacknuteSubmitTlacitko = false;
 
+    /**
+     * Vrací zadaný příkaz.
+     *
+     * @return Zadaný příkaz.
+     */
+
     public String getZadanyPrikaz() {
         zmacknuteSubmitTlacitko = false;
         return zadanyPrikaz;
     }
 
+    /**
+     * Nastavuje text výstupu.
+     *
+     * @param zobrazText Text k zobrazení.
+     */
+
     public void setInfoText(String zobrazText) {
         lblOutput.setText(zobrazText);
     }
+
+    /**
+     * Nastavuje text pro zobrazení aktuální místnosti.
+     *
+     * @param zobrazText Text k zobrazení.
+     */
 
     public void setMistnostText(String zobrazText) {
         lblMistnost.setText("Místnost: "+ zobrazText);
     }
 
+    /**
+     * Nastavuje text pro zobrazení zdraví hráče.
+     *
+     * @param zobrazText Text k zobrazení.
+     */
+
     public void setZivotText(String zobrazText) {
         lblZivoty.setText("Zdraví hráče:n"+ zobrazText+"%");
     }
+
+    /**
+     * Vrací informaci, zda bylo stisknuto tlačítko pro potvrzení.
+     *
+     * @return True, pokud bylo tlačítko stisknuto, jinak false.
+     */
 
     public boolean isZmacknutetlacitko() {
         return zmacknuteSubmitTlacitko;
     }
 
+    /**
+     * Nastavuje text oblasti ta.
+     *
+     * @param zobrazText Text k zobrazení.
+     */
+
     public void setTaText(String zobrazText) {
         ta.setText(zobrazText);
     }
 
+    /**
+     * Nastavuje text oblasti taMistnost.
+     *
+     * @param zobrazText Text k zobrazení.
+     */
+
     public void setTaMistnostText(String zobrazText) {
         taMistnost.setText("Předměty: \n" + zobrazText);
     }
+
+    /**
+     * Konstruktor pro vytvoření GUI.
+     *
+     * @param mistnost1 Popis první místnosti.
+     * @param mistnost2 Popis druhé místnosti.
+     * @param mistnost3 Popis třetí místnosti.
+     * @param mistnost4 Popis čtvrté místnosti.
+     * @param mistnost5 Popis páté místnosti.
+     * @param mistnost6 Popis šesté místnosti.
+     * @param mistnost7 Popis sedmé místnosti.
+     * @param mistnost8 Popis osmé místnosti.
+     * @param mistnost9 Popis deváté místnosti.
+     */
 
     public GUI(String mistnost1, String mistnost2, String mistnost3, String mistnost4, String mistnost5, String mistnost6, String mistnost7, String mistnost8, String mistnost9) {
 
@@ -255,6 +311,12 @@ public class GUI extends JFrame  implements ActionListener  {
         frame.setVisible(true);
     }
 
+    /**
+     * Metoda pro zpracování akcí uživatele.
+     *
+     * @param e ActionEvent objekt představující akci uživatele.
+     */
+
     public void actionPerformed(ActionEvent e)
     {
         String s = e.getActionCommand();
@@ -269,6 +331,14 @@ public class GUI extends JFrame  implements ActionListener  {
             System.exit(0);
         }
     }
+
+    /**
+     * Vytváří modální dialog s informacemi o programu.
+     *
+     * @param frame      Rámec, ke kterému je dialog připojen.
+     * @param textDialog Text zobrazovaný v titulku dialogu.
+     * @return JDialog objekt reprezentující modální dialog.
+     */
 
     private static JDialog createDialog(final JFrame frame, String textDialog){
         final JDialog modelDialog = new JDialog(frame,textDialog,
@@ -291,6 +361,14 @@ public class GUI extends JFrame  implements ActionListener  {
         dialogContainer.add(panel1, BorderLayout.SOUTH);
         return modelDialog;
     }
+
+    /**
+     * Vytváří modální dialog s nápovědou.
+     *
+     * @param frame      Rámec, ke kterému je dialog připojen.
+     * @param textDialog Text zobrazovaný v titulku dialogu.
+     * @return JDialog objekt reprezentující modální dialog.
+     */
 
     private static JDialog createDialogH(final JFrame frame, String textDialog){
         final JDialog modelDialogH = new JDialog(frame,textDialog,
